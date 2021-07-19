@@ -7,6 +7,8 @@
 package hellocs.clinic_management_system.bean;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -157,6 +159,17 @@ public class MedicineEntity implements Serializable {
 
     public Date getAcquiredDate() {
         return acquiredDate;
+    }
+
+    @JsonGetter("acquired_date")
+    public String getAcquiredDateFormatted() {
+        if (acquiredDate == null) {
+            return null;
+        }
+
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String dateValue = dateFormat.format(acquiredDate);
+        return dateValue;
     }
 
     public void setAcquiredDate(Date acquiredDate) {
