@@ -6,6 +6,8 @@
 
 package hellocs.clinic_management_system.dao.imp;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -27,7 +29,7 @@ import hellocs.clinic_management_system.dao.MedicineDao;
  * [NUMBER]  [VER]     [DATE]          [USER]             [CONTENT]
  * --------------------------------------------------------------------------
  * 001       1.0       2021/07/19      LinhDT             Create new
- * 002       1.1       2021/07/20      LinhDT             getMedicineEntityById
+ * 002       1.1       2021/07/20      LinhDT             getMedicineEntityById, getListMedicine
 */
 @Repository
 @Transactional
@@ -72,6 +74,26 @@ public class MedicineDaoImpl implements MedicineDao {
 
         }
         return medicineEntity;
+    }
+
+    /**
+     * getListMedicine
+     * @author: LinhDT
+     * @return
+     */
+    @Override
+    public List<MedicineEntity> getListMedicine() {
+        StringBuilder sql = new StringBuilder();
+        sql.append(" FROM ");
+        sql.append("    MedicineEntity me ");
+        sql.append(" ORDER BY ");
+        sql.append("    me.acquiredDate desc, ");
+        sql.append("    me.medicineId desc ");
+        
+        Query query = this.entityManager.createQuery(sql.toString());
+        List<MedicineEntity> listMedicine = null;
+        listMedicine = query.getResultList();
+        return listMedicine;
     }
 
 }

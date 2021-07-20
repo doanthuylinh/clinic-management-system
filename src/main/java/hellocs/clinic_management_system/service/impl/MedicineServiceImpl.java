@@ -6,6 +6,7 @@
 
 package hellocs.clinic_management_system.service.impl;
 
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ import hellocs.clinic_management_system.utils.ValidateUtils;
  * [NUMBER]  [VER]     [DATE]          [USER]             [CONTENT]
  * --------------------------------------------------------------------------
  * 001       1.0       2021/07/19      LinhDT             Create new
- * 002       1.1       2021/07/20      LinhDT             getMedicineById
+ * 002       1.1       2021/07/20      LinhDT             getMedicineById, getListMedicine
 */
 @Service
 @Transactional
@@ -68,6 +69,21 @@ public class MedicineServiceImpl implements MedicineService {
             return new ResultBean("ERR02", MessageUtils.getMessage("ERR02"));
         }
         return new ResultBean(medicine, "200", MessageUtils.getMessage("MSG01", new Object[] { "medicine by ID" }));
+    }
+
+    /**
+     * getListMedicine
+     * @author: LinhDT
+     * @return
+     * @throws ApiValidateException
+     */
+    @Override
+    public ResultBean getListMedicine() throws ApiValidateException {
+        List<MedicineEntity> listMedicine = medicineDao.getListMedicine();
+        if(Objects.isNull(listMedicine)) {
+            return new ResultBean("ERR02", MessageUtils.getMessage("ERR02"));
+        }
+        return new ResultBean(listMedicine, "200", MessageUtils.getMessage("MSG01", new Object[] { "list medicine" } ));
     }
 
 }

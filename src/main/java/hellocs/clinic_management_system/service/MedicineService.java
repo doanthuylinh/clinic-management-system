@@ -13,12 +13,12 @@ import hellocs.clinic_management_system.utils.ApiValidateException;
  * [OVERVIEW] Medicine Service.
  *
  * @author: LinhDT
- * @version: 1.0
+ * @version: 1.1
  * @History
  * [NUMBER]  [VER]     [DATE]          [USER]             [CONTENT]
  * --------------------------------------------------------------------------
  * 001       1.0       2021/07/19      LinhDT             Create new
- * 002       1.1       2021/07/20      LinhDT             getMedicineById
+ * 002       1.1       2021/07/20      LinhDT             getMedicineById, getListMedicine
 */
 public interface MedicineService {
 
@@ -39,5 +39,13 @@ public interface MedicineService {
      * @throws ApiValidateException
      */
     public ResultBean getMedicineById(Integer medicineId) throws ApiValidateException;
+    
+    /**
+     * getListMedicine
+     * @author: LinhDT
+     * @return
+     * @throws ApiValidateException
+     */
+    public ResultBean getListMedicine() throws ApiValidateException;
 
 }

@@ -31,7 +31,7 @@ import hellocs.clinic_management_system.utils.ResponseUtils;
  * [NUMBER]  [VER]     [DATE]          [USER]             [CONTENT]
  * --------------------------------------------------------------------------
  * 001       1.0       2021/07/19      LinhDT             Create new, API POST medicine
- * 002       1.1       2021/07/20      LinhDT             API GET a medicine by ID
+ * 002       1.1       2021/07/20      LinhDT             API GET a medicine by ID, API GET list medicine
 */
 @RestController
 @RequestMapping(value = "/api")
@@ -88,7 +88,30 @@ public class MedicineController {
             return new ResponseEntity<ResultBean>(entity, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        LOGGER.info("----------getMedicineById START----------");
+        LOGGER.info("----------getMedicineById END----------");
+
+        return new ResponseEntity<ResultBean>(entity, HttpStatus.OK);
+    }
+
+    /**
+     * getListMedicine
+     * @author: LinhDT
+     * @return
+     */
+    @RequestMapping(value = "/list-medicine", method = RequestMethod.GET)
+    public ResponseEntity<ResultBean> getListMedicine() {
+        
+        LOGGER.info("----------getListMedicine START----------");
+        
+        ResultBean entity = null;
+        try {
+            entity = medicineService.getListMedicine();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<ResultBean>(entity, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        
+        LOGGER.info("----------getListMedicine END----------");
 
         return new ResponseEntity<ResultBean>(entity, HttpStatus.OK);
     }

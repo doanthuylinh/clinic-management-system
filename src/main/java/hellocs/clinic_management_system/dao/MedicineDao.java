@@ -6,6 +6,8 @@
 
 package hellocs.clinic_management_system.dao;
 
+import java.util.List;
+
 import hellocs.clinic_management_system.bean.MedicineEntity;
 
 /**
@@ -17,7 +19,7 @@ import hellocs.clinic_management_system.bean.MedicineEntity;
  * [NUMBER]  [VER]     [DATE]          [USER]             [CONTENT]
  * --------------------------------------------------------------------------
  * 001       1.0       2021/07/19      LinhDT             Create new
- * 002       1.1       2021/07/20      LinhDT             getMedicineEntityById
+ * 002       1.1       2021/07/20      LinhDT             getMedicineEntityById, getListMedicine
 */
 public interface MedicineDao {
 
@@ -36,4 +38,11 @@ public interface MedicineDao {
      * @return
      */
     public MedicineEntity getMedicineEntityById(Integer medicineId);
+    
+    /**
+     * getListMedicine
+     * @author: LinhDT
+     * @return
+     */
+    public List<MedicineEntity> getListMedicine();
 }
