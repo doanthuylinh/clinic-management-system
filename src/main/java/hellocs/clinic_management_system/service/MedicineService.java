@@ -29,5 +29,14 @@ public interface MedicineService {
      * @throws ApiValidateException
      */
     public ResultBean addMedicine(String data) throws ApiValidateException;
+    
+    /**
+     * getMedicineById
+     * @author: LinhDT
+     * @param medicineId
+     * @return
+     * @throws ApiValidateException
+     */
+    public ResultBean getMedicineById(Integer medicineId) throws ApiValidateException;
 
 }

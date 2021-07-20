@@ -9,7 +9,9 @@ package hellocs.clinic_management_system.controller;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,11 +26,12 @@ import hellocs.clinic_management_system.utils.ResponseUtils;
  * [OVERVIEW] Medicine Controller.
  *
  * @author: LinhDT
- * @version: 1.0
+ * @version: 1.1
  * @History
  * [NUMBER]  [VER]     [DATE]          [USER]             [CONTENT]
  * --------------------------------------------------------------------------
- * 001       1.0       2021/07/19      LinhDT             Create new
+ * 001       1.0       2021/07/19      LinhDT             Create new, API POST medicine
+ * 002       1.1       2021/07/20      LinhDT             API GET a medicine by ID
 */
 @RestController
 @RequestMapping(value = "/api")
@@ -64,5 +67,29 @@ public class MedicineController {
 
         return new ResponseEntity<ResultBean>(resultBean, ResponseUtils.getResponseStatus(resultBean));
 
+    }
+
+    /**
+     * getMedicineById
+     * @author: LinhDT
+     * @param medicineId
+     * @return
+     */
+    @RequestMapping(value = "/medicine/{medicineId}", method = RequestMethod.GET)
+    public ResponseEntity<ResultBean> getMedicineById(@PathVariable Integer medicineId) {
+
+        LOGGER.info("----------getMedicineById START----------");
+
+        ResultBean entity = null;
+        try {
+            entity = medicineService.getMedicineById(medicineId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<ResultBean>(entity, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        LOGGER.info("----------getMedicineById START----------");
+
+        return new ResponseEntity<ResultBean>(entity, HttpStatus.OK);
     }
 }

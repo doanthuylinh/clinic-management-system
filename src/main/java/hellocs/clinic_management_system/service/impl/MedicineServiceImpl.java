@@ -6,6 +6,8 @@
 
 package hellocs.clinic_management_system.service.impl;
 
+import java.util.Objects;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,6 +51,22 @@ public class MedicineServiceImpl implements MedicineService {
         ValidateUtils.validateAddMedicine(medicine);
         
         return new ResultBean(medicineDao.addMedicine(medicine), "201", MessageUtils.getMessage("MSG02", "medicine"));
+    }
+    
+    /**
+     * getMedicineById
+     * @author: LinhDT
+     * @param medicineId
+     * @return
+     * @throws ApiValidateException
+     */
+    @Override
+    public ResultBean getMedicineById(Integer medicineId) throws ApiValidateException {
+        MedicineEntity medicine = medicineDao.getMedicineEntityById(medicineId);
+        if (Objects.isNull(medicine)){
+            return new ResultBean("ERR02", MessageUtils.getMessage("ERR02"));
+        }
+        return new ResultBean(medicine, "200", MessageUtils.getMessage("MSG01", new Object[] { "medicine by ID" }));
     }
 
 }

@@ -19,7 +19,7 @@ import hellocs.clinic_management_system.bean.MedicineEntity;
  * 001       1.0       2021/07/19      LinhDT             Create new
 */
 public interface MedicineDao {
-    
+
     /**
      * addMedicine
      * @author: LinhDT
@@ -28,4 +28,11 @@ public interface MedicineDao {
      */
     public MedicineEntity addMedicine(MedicineEntity medicineEntity);
 
+    /**
+     * getMedicineEntityById
+     * @author: LinhDT
+     * @param medicineId
+     * @return
+     */
+    public MedicineEntity getMedicineEntityById(Integer medicineId);
 }
