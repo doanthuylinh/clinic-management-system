@@ -26,12 +26,13 @@ import hellocs.clinic_management_system.utils.ResponseUtils;
  * [OVERVIEW] Medicine Controller.
  *
  * @author: LinhDT
- * @version: 1.1
+ * @version: 1.2
  * @History
  * [NUMBER]  [VER]     [DATE]          [USER]             [CONTENT]
  * --------------------------------------------------------------------------
  * 001       1.0       2021/07/19      LinhDT             Create new, API POST medicine
  * 002       1.1       2021/07/20      LinhDT             API GET a medicine by ID, API GET list medicine
+ * 003       1.2       2021/07/22      LinhDT             API PUT medicine
 */
 @RestController
 @RequestMapping(value = "/api")
@@ -100,9 +101,9 @@ public class MedicineController {
      */
     @RequestMapping(value = "/list-medicine", method = RequestMethod.GET)
     public ResponseEntity<ResultBean> getListMedicine() {
-        
+
         LOGGER.info("----------getListMedicine START----------");
-        
+
         ResultBean entity = null;
         try {
             entity = medicineService.getListMedicine();
@@ -110,9 +111,33 @@ public class MedicineController {
             e.printStackTrace();
             return new ResponseEntity<ResultBean>(entity, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        
+
         LOGGER.info("----------getListMedicine END----------");
 
         return new ResponseEntity<ResultBean>(entity, HttpStatus.OK);
+    }
+
+    /**
+     * updateMedicine
+     * @author: LinhDT
+     * @param data
+     * @return
+     */
+    @RequestMapping(value = "/medicine", method = RequestMethod.PUT)
+    public ResponseEntity<ResultBean> updateMedicine(@RequestBody String data) {
+        LOGGER.info("----------updateMedicine START----------");
+
+        ResultBean resultBean = null;
+        try {
+            resultBean = medicineService.updateMedicine(data);
+        } catch (ApiValidateException e) {
+            resultBean = new ResultBean(e.getCode(), e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultBean = new ResultBean("500", "Internal server error");
+        }
+
+        LOGGER.info("----------updateMedicine END----------");
+        return new ResponseEntity<ResultBean>(resultBean, ResponseUtils.getResponseStatus(resultBean));
     }
 }

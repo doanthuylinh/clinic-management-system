@@ -44,8 +44,12 @@ public class ValidateUtils {
             throw new ApiValidateException("ERR01", MessageUtils.getMessage("ERR01", ConstantColumn.QUANTITY_IN_STOCK));
         }
 
-        if (DataUtils.isNullOrEmpty(medicine.getQuantityPerUnit())) {
-            throw new ApiValidateException("ERR01", MessageUtils.getMessage("ERR01", ConstantColumn.QUANTITY_PER_UNIT));
+        if (medicine.getUnitValue() != 4) {
+            if (DataUtils.isNullOrEmpty(medicine.getQuantityPerUnit())) {
+                throw new ApiValidateException("ERR01", MessageUtils.getMessage("ERR01", ConstantColumn.QUANTITY_PER_UNIT));
+            }
+        } else {
+            medicine.setQuantityPerUnit(1);
         }
 
         if (DataUtils.isNullOrEmpty(medicine.getAcquiredPricePerCount())) {

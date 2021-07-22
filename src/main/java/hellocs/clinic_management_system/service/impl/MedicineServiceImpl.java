@@ -26,12 +26,13 @@ import hellocs.clinic_management_system.utils.ValidateUtils;
  * [OVERVIEW] Medicine Service Implementation.
  *
  * @author: LinhDT
- * @version: 1.1
+ * @version: 1.2
  * @History
  * [NUMBER]  [VER]     [DATE]          [USER]             [CONTENT]
  * --------------------------------------------------------------------------
  * 001       1.0       2021/07/19      LinhDT             Create new
  * 002       1.1       2021/07/20      LinhDT             getMedicineById, getListMedicine
+ * 003       1.2       2021/07/22      LinhDT             updateMedicine
 */
 @Service
 @Transactional
@@ -39,6 +40,7 @@ public class MedicineServiceImpl implements MedicineService {
 
     @Autowired
     private MedicineDao medicineDao;
+
     /**
      * addMedicine
      * @author: LinhDT
@@ -49,12 +51,12 @@ public class MedicineServiceImpl implements MedicineService {
     @Override
     public ResultBean addMedicine(String data) throws ApiValidateException {
         MedicineEntity medicine = DataUtils.getEntityByJsonString(data, MedicineEntity.class);
-        
+
         ValidateUtils.validateAddMedicine(medicine);
-        
+
         return new ResultBean(medicineDao.addMedicine(medicine), "201", MessageUtils.getMessage("MSG02", "medicine"));
     }
-    
+
     /**
      * getMedicineById
      * @author: LinhDT
@@ -65,7 +67,7 @@ public class MedicineServiceImpl implements MedicineService {
     @Override
     public ResultBean getMedicineById(Integer medicineId) throws ApiValidateException {
         MedicineEntity medicine = medicineDao.getMedicineEntityById(medicineId);
-        if (Objects.isNull(medicine)){
+        if (Objects.isNull(medicine)) {
             return new ResultBean("ERR02", MessageUtils.getMessage("ERR02"));
         }
         return new ResultBean(medicine, "200", MessageUtils.getMessage("MSG01", new Object[] { "medicine by ID" }));
@@ -80,10 +82,24 @@ public class MedicineServiceImpl implements MedicineService {
     @Override
     public ResultBean getListMedicine() throws ApiValidateException {
         List<MedicineEntity> listMedicine = medicineDao.getListMedicine();
-        if(Objects.isNull(listMedicine)) {
+        if (Objects.isNull(listMedicine)) {
             return new ResultBean("ERR02", MessageUtils.getMessage("ERR02"));
         }
-        return new ResultBean(listMedicine, "200", MessageUtils.getMessage("MSG01", new Object[] { "list medicine" } ));
+        return new ResultBean(listMedicine, "200", MessageUtils.getMessage("MSG01", new Object[] { "list medicine" }));
+    }
+
+    /**
+     * updateMedicine
+     * @author: LinhDT
+     * @param data
+     * @return
+     * @throws ApiValidateException
+     */
+    @Override
+    public ResultBean updateMedicine(String data) throws ApiValidateException {
+        MedicineEntity medicineEntity = DataUtils.getEntityByJsonString(data, MedicineEntity.class);
+        ValidateUtils.validateAddMedicine(medicineEntity);
+        return new ResultBean(medicineDao.updateMedicine(medicineEntity),"200",MessageUtils.getMessage("MSG03", "medicine"));
     }
 
 }
