@@ -78,7 +78,6 @@ public class MedicineController {
      * @param medicineId
      * @return
      */
-    @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/medicine/{medicineId}", method = RequestMethod.GET)
     public ResponseEntity<ResultBean> getMedicineById(@PathVariable Integer medicineId) {
 
