@@ -33,7 +33,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable() // Prevent request from another domain.
                 .authorizeRequests()
                 // User
-                .antMatchers(HttpMethod.POST, "/api/medicine").permitAll();
+                .antMatchers(HttpMethod.POST, "/api/medicine").permitAll().antMatchers(HttpMethod.GET, "/api/medicine/{medicineId}", "/api/list-medicine")
+                .permitAll().antMatchers(HttpMethod.PUT, "/api/medicine").permitAll().antMatchers(HttpMethod.DELETE, "/api/medicine").permitAll();
 
         // Except for the API(s) above, all other requests must be verified before access.
     }
