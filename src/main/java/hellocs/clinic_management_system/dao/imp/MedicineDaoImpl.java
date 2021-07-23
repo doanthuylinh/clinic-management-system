@@ -24,13 +24,14 @@ import hellocs.clinic_management_system.dao.MedicineDao;
  * [OVERVIEW] Medicine Data Access Object Implementation.
  *
  * @author: LinhDT
- * @version: 1.2
+ * @version: 1.3
  * @History
  * [NUMBER]  [VER]     [DATE]          [USER]             [CONTENT]
  * --------------------------------------------------------------------------
  * 001       1.0       2021/07/19      LinhDT             Create new
  * 002       1.1       2021/07/20      LinhDT             getMedicineEntityById, getListMedicine
  * 003       1.2       2021/07/22      LinhDT             updateMedicine
+ * 004       1.3       2021/07/23      LinhDT             deleteMedicine
 */
 @Repository
 @Transactional
@@ -107,6 +108,25 @@ public class MedicineDaoImpl implements MedicineDao {
     public MedicineEntity updateMedicine(MedicineEntity medicineEntity) {
         this.entityManager.merge(medicineEntity);
         return medicineEntity;
+    }
+
+    /**
+     * deleteMedicine
+     * @author: LinhDT
+     * @param medicineId
+     */
+    @Transactional
+    @Override
+    public void deleteMedicine(Integer medicineId) {
+        StringBuilder sql = new StringBuilder();
+        sql.append(" DELETE FROM ");
+        sql.append("    MedicineEntity me ");
+        sql.append(" WHERE ");
+        sql.append("    me.medicineId = :medicineId ");
+
+        Query query = this.entityManager.createQuery(sql.toString());
+        query.setParameter("medicineId", medicineId);
+        query.executeUpdate();
     }
 
 }

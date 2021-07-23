@@ -19,6 +19,7 @@ package hellocs.clinic_management_system.utils;
 public class ConstantColumn {
 
     // Medicine
+    public final static String MEDICINE_ID = "medicine_id";
     public final static String MEDICINE_NAME = "medicine_name";
     public final static String QUANTITY_ACQUIRED = "quantity_acquired";
     public final static String UNIT = "unit";

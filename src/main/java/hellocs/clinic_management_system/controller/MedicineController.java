@@ -26,13 +26,14 @@ import hellocs.clinic_management_system.utils.ResponseUtils;
  * [OVERVIEW] Medicine Controller.
  *
  * @author: LinhDT
- * @version: 1.2
+ * @version: 1.3
  * @History
  * [NUMBER]  [VER]     [DATE]          [USER]             [CONTENT]
  * --------------------------------------------------------------------------
  * 001       1.0       2021/07/19      LinhDT             Create new, API POST medicine
  * 002       1.1       2021/07/20      LinhDT             API GET a medicine by ID, API GET list medicine
  * 003       1.2       2021/07/22      LinhDT             API PUT medicine
+ * 004       1.3       2021/07/23      LinhDT             API DELETE medicine
 */
 @RestController
 @RequestMapping(value = "/api")
@@ -138,6 +139,31 @@ public class MedicineController {
         }
 
         LOGGER.info("----------updateMedicine END----------");
+        return new ResponseEntity<ResultBean>(resultBean, ResponseUtils.getResponseStatus(resultBean));
+    }
+    
+    /**
+     * deleteMedicine
+     * @author: LinhDT
+     * @param data
+     * @return
+     */
+    @RequestMapping(value = "/medicine", method = RequestMethod.DELETE)
+    public ResponseEntity<ResultBean> deleteMedicine(@RequestBody String data){
+        LOGGER.info("----------deleteMedicine START----------");
+        
+        ResultBean resultBean = null;
+        
+        try {
+            resultBean = medicineService.deleteMedicine(data);
+        }catch(ApiValidateException e) {
+            resultBean = new ResultBean(e.getCode(),e.getMessage());
+        }catch(Exception e) {
+            e.printStackTrace();
+            resultBean = new ResultBean("500", "Internal server error");
+        }
+        
+        LOGGER.info("----------deleteMedicine END----------");
         return new ResponseEntity<ResultBean>(resultBean, ResponseUtils.getResponseStatus(resultBean));
     }
 }

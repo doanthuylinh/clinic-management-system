@@ -57,6 +57,19 @@ public class DataUtils {
     }
 
     /**
+     * getAsIntegerByJsonString
+     * @author: LinhDT
+     * @param data
+     * @param member
+     * @return
+     * @throws ApiValidateException
+     */
+    public static Integer getAsIntegerByJsonString(String data, String member) throws ApiValidateException {
+        JsonObject jobj = new Gson().fromJson(data, JsonObject.class);
+        return getAsIntegerByJson(jobj, member);
+    }
+
+    /**
      * getAsStringByJson
      * @author: LinhDT
      * @param object
@@ -139,7 +152,7 @@ public class DataUtils {
         }
         return false;
     }
-    
+
     /**
      * isNullOrEmpty
      * @author: LinhDT
